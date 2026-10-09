@@ -3773,7 +3773,29 @@ const FX = {
     this.toasts = appEl.querySelector('.toast-layer');
   },
   reduced() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; },
-  vibrate(ms) { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) { /* not supported */ } },
+  vibrate(ms) {
+    try {
+      if (navigator.vibrate) { navigator.vibrate(ms); return; }
+      // iPhone Safari has no Vibration API. Since iOS 18, toggling a native switch gives a light
+      // haptic tick, so a pattern becomes up to three ticks at the start of its "on" segments.
+      const starts = []; let t = 0;
+      (Array.isArray(ms) ? ms : [ms]).forEach((d, i) => { if (i % 2 === 0) starts.push(t); t += d; });
+      starts.slice(0, 3).forEach(at => (at ? setTimeout(() => this.tick(), at) : this.tick()));
+    } catch (e) { /* not supported */ }
+  },
+  tick() {
+    const now = Date.now(); if (now - (this._tickAt || 0) < 50) return; this._tickAt = now;
+    let l = this._haptic;
+    if (!l) {
+      l = this._haptic = document.createElement('label');
+      l.setAttribute('aria-hidden', 'true');
+      l.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
+      l.innerHTML = '<input type="checkbox" switch tabindex="-1">';
+      l.addEventListener('click', e => e.stopPropagation());
+      document.body.appendChild(l);
+    }
+    l.click();
+  },
   toast(text, { icon = 'check', tone = '' } = {}) {
     const t = document.createElement('div');
     t.className = 'toast ' + tone;
