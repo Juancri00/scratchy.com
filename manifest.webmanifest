@@ -1,0 +1,16 @@
+{
+  "name": "Scratchy",
+  "short_name": "Scratchy",
+  "description": "Good food. Bigger rewards. Dine. Scan. Scratch. Win.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D2B23",
+  "theme_color": "#0D2B23",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
