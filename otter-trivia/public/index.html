@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1B3F">
+  <meta name="description" content="Play the Otter Restaurant Trivia Challenge: 8 quick questions and a chance to win.">
+  <title>Otter Restaurant Trivia</title>
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <img src="/brand/logo.svg" alt="Otter" class="logo" width="112" height="32">
+    <span class="score-pill" id="scorePill" hidden><span aria-hidden="true">★</span> <span id="scoreValue">0</span> pts</span>
+  </header>
+
+  <main id="app">
+    <!-- Loading -->
+    <section class="screen" data-screen="loading" aria-busy="true">
+      <div class="spinner" role="status" aria-label="Loading"></div>
+    </section>
+
+    <!-- 1. Registration -->
+    <section class="screen" data-screen="register" hidden>
+      <div class="hero band">
+        <p class="eyebrow">Otter presents</p>
+        <h1>Restaurant Trivia Challenge</h1>
+        <ul class="chips" aria-label="About the game">
+          <li>8 questions</li>
+          <li>About 90 seconds</li>
+          <li>Enter to win</li>
+        </ul>
+      </div>
+
+      <form class="card form" id="registerForm" novalidate>
+        <p class="lede">Play for a chance to win <strong data-cfg="prizeName">a prize</strong>.</p>
+
+        <div class="field">
+          <label for="fullName">Full name</label>
+          <input id="fullName" name="fullName" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required enterkeyhint="next">
+          <p class="error" id="fullName-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="phone">Mobile phone</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" maxlength="25" required enterkeyhint="next">
+          <p class="error" id="phone-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="business">Restaurant / business <span class="optional">optional</span></label>
+          <input id="business" name="business" type="text" autocomplete="organization" maxlength="100" enterkeyhint="done">
+          <p class="error" id="business-error" aria-live="polite"></p>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" id="consent" name="consent">
+          <span data-cfg="consentText">Yes, Otter may contact me about its products and services.</span>
+        </label>
+
+        <p class="error form-error" id="form-error" aria-live="assertive"></p>
+
+        <button class="btn primary big" type="submit" id="startBtn">Start the Trivia Challenge</button>
+
+        <p class="fineprint">
+          We use your name and number to run the raffle and contact you if you win.
+          We'll only reach out about Otter products if you tick the box above.
+          <button type="button" class="link" data-open-rules>Raffle rules &amp; privacy</button>
+        </p>
+      </form>
+    </section>
+
+    <!-- 2. Quiz -->
+    <section class="screen" data-screen="quiz" hidden>
+      <div class="progress-wrap band">
+        <div class="progress-label"><span id="qCounter">Question 1 of 8</span></div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="card question" id="questionCard">
+        <h2 id="questionText" tabindex="-1"></h2>
+        <div class="choices" id="choices" role="group" aria-labelledby="questionText"></div>
+
+        <div class="feedback" id="feedback" hidden aria-live="polite">
+          <p class="feedback-title" id="feedbackTitle"></p>
+          <p class="feedback-answer" id="feedbackAnswer"></p>
+          <p class="feedback-expl" id="feedbackExpl"></p>
+        </div>
+        <p class="error form-error" id="quiz-error" aria-live="assertive"></p>
+      </div>
+
+      <div class="sticky-cta">
+        <button class="btn primary big" id="nextBtn" hidden>Next question →</button>
+      </div>
+    </section>
+
+    <!-- 3. Results -->
+    <section class="screen" data-screen="results" hidden>
+      <canvas id="confetti" aria-hidden="true"></canvas>
+      <div class="results-top band">
+        <div class="ring" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="52"/><circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"/></svg>
+          <div class="ring-text"><span id="finalScore">0</span><small>/<span id="finalTotal">8</span></small></div>
+        </div>
+        <h1 id="resultTitle">Nice work!</h1>
+        <p class="lede" id="resultMsg"></p>
+      </div>
+
+      <div class="card prize" id="prizeCard">
+        <p class="prize-badge" id="prizeBadge">🎟️ You're entered!</p>
+        <p class="prize-main" id="prizeMain"></p>
+        <div class="entry-code" id="entryWrap">
+          <span>Your entry code</span>
+          <strong id="entryCode">OTR-XXXXXX</strong>
+        </div>
+        <p class="prize-how" data-cfg="drawInfo"></p>
+        <p class="prize-how" data-cfg="winnerContact"></p>
+        <button type="button" class="link" data-open-rules>Raffle rules</button>
+      </div>
+
+      <div class="card next-step">
+        <p class="next-title">What's next?</p>
+        <p data-cfg="boothCta">Stop by the Otter booth for a quick demo.</p>
+      </div>
+
+      <button class="btn ghost" id="newPlayerBtn" type="button">New player on this device</button>
+    </section>
+
+    <!-- Already played -->
+    <section class="screen" data-screen="played" hidden>
+      <div class="results-top band">
+        <div class="big-emoji" aria-hidden="true">🦦</div>
+        <h1>You've already played!</h1>
+        <p class="lede" id="playedMsg">It's one entry per person. Your entry is already in. Good luck!</p>
+      </div>
+      <div class="card next-step">
+        <p class="next-title">What's next?</p>
+        <p data-cfg="boothCta">Stop by the Otter booth for a quick demo.</p>
+      </div>
+      <button class="btn ghost" id="backBtn" type="button">Back</button>
+    </section>
+  </main>
+
+  <dialog id="rulesDialog" class="dialog">
+    <form method="dialog">
+      <h2>Raffle rules &amp; privacy</h2>
+      <ul id="rulesList"></ul>
+      <button class="btn primary" value="close">Got it</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

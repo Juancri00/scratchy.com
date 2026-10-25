@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 32" width="112" height="32" role="img" aria-label="Otter">
+  <!-- Placeholder wordmark. Replace this file with Otter's official logo (white version for dark backgrounds). -->
+  <rect x="0" y="2" width="28" height="28" rx="8" fill="#FFC53D"/>
+  <circle cx="10" cy="14" r="2.4" fill="#0B1B3F"/>
+  <circle cx="18" cy="14" r="2.4" fill="#0B1B3F"/>
+  <path d="M10 20.5q4 3 8 0" stroke="#0B1B3F" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <text x="36" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="23" font-weight="800" letter-spacing="-0.5" fill="#FFFFFF">otter</text>
+</svg>

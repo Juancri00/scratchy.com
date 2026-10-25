@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Otter Trivia Admin</title>
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <script src="/admin/admin.js" defer></script>
+</head>
+<body class="admin">
+  <header class="admin-bar">
+    <img src="/brand/logo.svg" alt="Otter" class="logo" width="112" height="32">
+    <span class="admin-title">Trivia admin</span>
+    <button class="btn small light" id="logoutBtn" hidden>Log out</button>
+  </header>
+
+  <!-- Login -->
+  <section id="loginView" class="wrap" hidden>
+    <form class="card login" id="loginForm">
+      <h1>Team login</h1>
+      <p class="muted">Participant data is private. Enter the admin password to continue.</p>
+      <label for="password">Admin password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <p class="error" id="loginError" aria-live="assertive"></p>
+      <button class="btn primary big" type="submit">Log in</button>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashView" class="wrap wide" hidden>
+    <div class="stats" id="stats"></div>
+
+    <div class="grid">
+      <div class="card raffle">
+        <h2>Raffle</h2>
+        <p class="muted" id="raffleRule"></p>
+        <p class="pool"><strong id="poolCount">0</strong> <span id="poolLabel">eligible entries</span> left in the draw</p>
+        <button class="btn primary" id="drawBtn">Draw a winner</button>
+        <div class="winner" id="winnerBox" hidden aria-live="polite"></div>
+        <details class="history">
+          <summary>Draw history (<span id="drawCount">0</span>)</summary>
+          <ol id="drawList"></ol>
+        </details>
+      </div>
+
+      <div class="card qr">
+        <h2>Booth QR code</h2>
+        <div class="qr-box"><img id="qrImg" alt="QR code for the trivia game" width="180" height="180"></div>
+        <p class="qr-url" id="qrUrl"></p>
+        <p class="warn" id="qrWarn" hidden>This address is local or not HTTPS, so phones at the booth can't reach it. Deploy the app and open this admin page from its public URL (or set PUBLIC_URL) before printing.</p>
+        <div class="row">
+          <a class="btn small" id="qrDownload" href="/qr.svg" download="otter-trivia-qr.svg">Download SVG</a>
+          <a class="btn small" href="/sign.html" target="_blank" rel="noopener">Print booth sign</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <h2>Participants</h2>
+        <input type="search" id="search" placeholder="Search name, restaurant, phone or code" aria-label="Search participants">
+        <select id="filter" aria-label="Filter participants">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Not finished</option>
+          <option value="raffle">Raffle entries</option>
+          <option value="consent">Marketing opt-ins</option>
+        </select>
+        <a class="btn primary small" href="/api/admin/export.csv" id="exportBtn">Export CSV</a>
+      </div>
+      <p class="muted small" id="tableMeta"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th><th>Phone</th><th>Restaurant</th><th>Marketing OK</th>
+              <th>Registered</th><th>Score</th><th>Status</th><th>Entry</th><th><span class="sr">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

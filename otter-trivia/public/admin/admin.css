@@ -1,0 +1,66 @@
+body.admin { background: var(--bg); }
+.admin-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 20px;
+}
+.admin-title { font-weight: 700; opacity: 0.85; margin-right: auto; }
+.wrap { max-width: 440px; margin: 32px auto; padding: 0 16px; }
+.wrap.wide { max-width: 1180px; margin-top: 20px; }
+.login h1 { font-size: 26px; color: var(--ink); margin-bottom: 6px; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.error { margin-bottom: 12px; }
+.card h2 { margin: 0 0 8px; font-size: 19px; }
+
+.btn.small { min-height: 40px; padding: 8px 14px; font-size: 15px; border-radius: 10px; background: var(--brand-soft); color: var(--brand); text-decoration: none; }
+.btn.small.primary { background: var(--brand); color: #fff; box-shadow: none; }
+.btn.light { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.btn.danger { background: transparent; color: var(--bad); min-height: 36px; padding: 6px 10px; font-size: 14px; font-weight: 700; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat { background: var(--card); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.stat span { display: block; color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat strong { font-size: 30px; font-variant-numeric: tabular-nums; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.grid > .card { margin-bottom: 0; }
+.grid { margin-bottom: 16px; }
+@media (min-width: 820px) { .grid { grid-template-columns: 1.4fr 1fr; } }
+
+.pool { font-size: 16px; margin: 4px 0 12px; }
+.winner { margin-top: 14px; padding: 16px; background: #FFF7E0; border: 2px solid var(--gold); border-radius: 14px; animation: fade-up 0.3s ease both; }
+.winner .w-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--muted); margin: 0; }
+.winner .w-name { font-size: 26px; font-weight: 800; margin: 2px 0; }
+.winner p { margin: 2px 0; }
+.history { margin-top: 14px; }
+.history summary { cursor: pointer; font-weight: 700; color: var(--brand); }
+.history ol { padding-left: 22px; color: var(--muted); font-size: 14px; }
+
+.qr { text-align: center; }
+.qr-box { display: inline-block; background: #fff; padding: 8px; border-radius: 12px; border: 1px solid var(--line); }
+.qr-box img { display: block; width: 180px; height: 180px; }
+.qr-url { font-weight: 700; word-break: break-all; margin: 10px 0; }
+.warn { background: var(--bad-bg); color: var(--bad); font-weight: 600; font-size: 14px; padding: 10px 12px; border-radius: 10px; text-align: left; }
+.row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+.toolbar h2 { margin: 0 auto 0 0; }
+.toolbar input[type="search"] { min-height: 44px; font-size: 16px; width: min(340px, 100%); padding: 8px 12px; border-width: 1px; }
+.toolbar select { min-height: 44px; font-size: 16px; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+td.wrap-cell { white-space: normal; min-width: 140px; }
+tr.is-winner td { background: #FFF7E0; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.tag.ok { background: var(--good-bg); color: var(--good); }
+.tag.pending { background: var(--brand-soft); color: var(--brand); }
+.tag.no { background: var(--bg); color: var(--muted); }
+.code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.empty { text-align: center; color: var(--muted); padding: 28px 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }

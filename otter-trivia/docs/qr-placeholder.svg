@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" rx="24" fill="#F3F5FA" stroke="#0B1B3F" stroke-width="6" stroke-dasharray="18 12"/>
+  <text x="200" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#0B1B3F">QR CODE</text>
+  <text x="200" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#0B1B3F">PLACEHOLDER</text>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#5B6478">Not scannable. Deploy the app, then</text>
+  <text x="200" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#5B6478">run: npm run qr -- https://your-live-url</text>
+</svg>

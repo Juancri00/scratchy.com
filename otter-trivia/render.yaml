@@ -1,0 +1,32 @@
+# Render Blueprint: New > Blueprint in the Render dashboard, pick this repo.
+# A persistent disk requires a paid instance type (Starter or above).
+services:
+  - type: web
+    name: otter-trivia
+    runtime: node
+    rootDir: otter-trivia
+    plan: starter
+    buildCommand: "true"
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: otter-trivia-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: PUBLIC_URL
+        sync: false
+      - key: PRIZE_NAME
+        sync: false
+      - key: DRAW_INFO
+        sync: false
